@@ -3,6 +3,13 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,5 +59,27 @@ public class PersonController {
 	public String deleteAllPersons() {
 		personService.deleteAll();
 		return "Deleted";
+	}
+	
+	
+	//using multiple http methods for future integration
+	
+	@PutMapping("/put")
+	public String test()
+	{
+		return "put operation";
+	}
+	
+	@PostMapping("/write/{message}")
+	public String message(@PathVariable(name="message") String message)
+	{
+		return message;
+	}
+	
+	@PostMapping("/see")
+	public Person see(@RequestBody Person person)
+	{
+		person.setAge(person.getAge()+1);
+		return person;
 	}
 }
